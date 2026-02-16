@@ -14,7 +14,6 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SeparatorMenuItem;
-import javafx.scene.control.ToolBar;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -39,10 +38,6 @@ public class IdeView {
 
         MenuBar menuBar = buildMenuBar();
         root.setTop(menuBar);
-
-        ToolBar toolBar = buildToolBar();
-        VBox topBox = new VBox(menuBar, toolBar);
-        root.setTop(topBox);
 
         // Status bar: "Connected"/"Disconnected" + icon, remote folder path (updated by background monitor)
         Region connectionIndicator = new Region();
@@ -237,13 +232,6 @@ public class IdeView {
         alert.setHeaderText("Nemo Studio Desktop");
         alert.setContentText("A basic demo IDE built with JavaFX.\nVersion 1.0.0");
         alert.showAndWait();
-    }
-
-    private ToolBar buildToolBar() {
-        Button newBtn = new Button("New");
-        Button openBtn = new Button("Open");
-        Button saveBtn = new Button("Save");
-        return new ToolBar(newBtn, openBtn, saveBtn);
     }
 
     public BorderPane getRoot() {

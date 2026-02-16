@@ -9,11 +9,11 @@ Nemo Studio Desktop (NSD) acts as your personal devops specialized in preparing 
 
 ## Features (demo)
 
-- **Menu bar**: File (New, Open, Save, Exit), Edit, Help (About)
-- **Toolbar**: New, Open, Save
-- **Project tree**: Simple file tree placeholder
-- **Editor**: Code area with monospace font and dark theme
-- **Status bar**: Shows actions and selection
+- **Remote Connection**: Connects to your DGX Spark and run remote commands to setup NVIDIA Nemo
+- **End to End Workflow Validation**: NSD can prepare each step of NVIDIA Nemo workflow.
+- **End to End Example**: Once all the steps are ready NSD can prepare a basic end to end example as a starting template.
+- **Connects to existing NVIDIA Nemo tools**: NSD is a complement of existing NVIDIA Nemo tools such as Nemo Agent Toolking (NAT), once the environment is ready and installed it will guide the user to open this official tools.
+- **Learning Reinforcement**: NSD will take the user to the official documentation to clarify the concepts behind NVIDIA Nemo.
 
 ## Prerequisites (any OS)
 
