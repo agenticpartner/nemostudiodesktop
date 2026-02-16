@@ -16,6 +16,11 @@ public final class GetReady01 {
     public static void execute(RemoteTerminalPanel terminal) {
         String script = loadScript(SCRIPT_RESOURCE);
         if (script != null) {
+            String remotePath = ConnectionStore.loadRemoteFolder();
+            if (remotePath != null && !remotePath.trim().isEmpty()) {
+                String safePath = remotePath.trim().replace("'", "'\"'\"'");
+                script = "REMOTE_PATH='" + safePath + "'\n" + script;
+            }
             terminal.runScript(script);
         } else {
             terminal.appendOutput("[GetReady01] Could not load script " + SCRIPT_RESOURCE + "\n");
