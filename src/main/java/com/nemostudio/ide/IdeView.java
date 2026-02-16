@@ -2,6 +2,8 @@ package com.nemostudio.ide;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -18,6 +20,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 /**
@@ -63,12 +66,21 @@ public class IdeView {
         VBox centerSplit = new VBox();
         centerSplit.setStyle("-fx-background-color: transparent;");
 
+        // Remote terminal: shown in bottom panel only when a Get Ready button is pressed
+        RemoteTerminalPanel terminalPanel = new RemoteTerminalPanel();
+        terminalPanel.setVisible(false);
+        Pane terminalPlaceholder = new Pane();
+        terminalPlaceholder.setStyle("-fx-background-color: transparent;");
+        StackPane bottomStack = new StackPane();
+        bottomStack.getChildren().addAll(terminalPlaceholder, terminalPanel);
+
         HBox centerOverlay = new HBox();
         centerOverlay.setStyle("-fx-background-color: transparent;");
         centerOverlay.setMinSize(0, 0);
         centerOverlay.setMaxWidth(Double.MAX_VALUE);
 
         for (int i = 0; i < 8; i++) {
+            final int panelIndex = i;
             Pane panel = new Pane();
             panel.setStyle("-fx-background-color: transparent;");
             panel.setMinWidth(0);
@@ -76,6 +88,15 @@ public class IdeView {
             HBox.setHgrow(panel, Priority.ALWAYS);
             if (i >= 1) {
                 Button getReadyBtn = new Button("Get Ready");
+                getReadyBtn.setOnAction(e -> {
+                    terminalPanel.setVisible(true);
+                    terminalPanel.connect(() -> {
+                        // Run script after a short delay so the remote shell is ready for input
+                        Executors.newSingleThreadScheduledExecutor()
+                                .schedule(() -> javafx.application.Platform.runLater(() -> IdeView.this.runGetReady(panelIndex, terminalPanel)),
+                                        400, TimeUnit.MILLISECONDS);
+                    });
+                });
                 panel.getChildren().add(getReadyBtn);
                 Runnable positionButton = () -> {
                     double pw = panel.getWidth();
@@ -92,22 +113,33 @@ public class IdeView {
             centerOverlay.getChildren().add(panel);
         }
 
-        Pane bottomPanel = new Pane();
-        bottomPanel.setStyle("-fx-background-color: yellow;");
-        bottomPanel.setMinHeight(0);
-        bottomPanel.setMaxWidth(Double.MAX_VALUE);
+        bottomStack.setMinHeight(0);
+        bottomStack.setMaxWidth(Double.MAX_VALUE);
 
         // Strict 50/50 height: each half gets exactly half of the center area
         centerOverlay.prefHeightProperty().bind(centerSplit.heightProperty().multiply(0.5));
         centerOverlay.maxHeightProperty().bind(centerSplit.heightProperty().multiply(0.5));
-        bottomPanel.prefHeightProperty().bind(centerSplit.heightProperty().multiply(0.5));
-        bottomPanel.maxHeightProperty().bind(centerSplit.heightProperty().multiply(0.5));
+        bottomStack.prefHeightProperty().bind(centerSplit.heightProperty().multiply(0.5));
+        bottomStack.maxHeightProperty().bind(centerSplit.heightProperty().multiply(0.5));
 
-        centerSplit.getChildren().addAll(centerOverlay, bottomPanel);
+        centerSplit.getChildren().addAll(centerOverlay, bottomStack);
         root.setCenter(centerSplit);
 
         statusBarMonitor = new StatusBarMonitor();
         statusBarMonitor.start(connectionIndicator, connectionLabel, remoteFolderLabel);
+    }
+
+    private void runGetReady(int panelIndex, RemoteTerminalPanel terminal) {
+        switch (panelIndex) {
+            case 1 -> GetReady01.execute(terminal);
+            case 2 -> GetReady02.execute(terminal);
+            case 3 -> GetReady03.execute(terminal);
+            case 4 -> GetReady04.execute(terminal);
+            case 5 -> GetReady05.execute(terminal);
+            case 6 -> GetReady06.execute(terminal);
+            case 7 -> GetReady07.execute(terminal);
+            default -> {}
+        }
     }
 
     private MenuBar buildMenuBar() {

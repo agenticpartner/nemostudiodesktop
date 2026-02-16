@@ -1,6 +1,11 @@
-# Nemo Studio Desktop
+# Nemo Studio Desktop for NVIDIA DGX Spark
 
-A basic **demo IDE** built with **JavaFX**. Runs **locally on your machine** — same setup on **Windows, macOS, and Linux** (Java + Maven only, no Docker).
+Many non technical users are keen to get hands on state of the art hardware such as NVIDIA DGX Spark and struggle to follow the tutorials or jupyter notebook examples, it's even more complex for end to end workflows like the ones supported by NVIDIA Nemo.
+
+Nemo Studio Desktop (NSD) acts as your personal devops specialized in preparing all the prerequisites for working with NVIDIA Nemo, it runs on your local computer and connects to your DGX Spark, after installing you'll have a shorthand at hand that helps you get ready to work with NVIDIA Nemo.
+
+![](assets/20260216_020626_gtcdc25-nemo-diagram.svg)
+
 
 ## Features (demo)
 
@@ -14,11 +19,12 @@ A basic **demo IDE** built with **JavaFX**. Runs **locally on your machine** —
 
 - **OpenJDK 25** for this project (see below to use another version). **Maven is not required** (Maven Wrapper is included).
 
-| OS      | Install OpenJDK 25 |
-|---------|--------------------|
+
+| OS      | Install OpenJDK 25        |
+| --------- | --------------------------- |
 | macOS   | `brew install openjdk@25` |
-| Windows | [Adoptium](https://adoptium.net/) — install JDK 25, then create **`config\java-home`** with one line: the full path to the JDK folder (e.g. `C:\Program Files\Eclipse Adoptium\jdk-25.0.x-hotspot`) |
-| Linux   | Install OpenJDK 25, then optionally create **`config/java-home`** with one line: the full path to the JDK (e.g. `/usr/lib/jvm/java-25-openjdk`) |
+| Windows | Still not tested          |
+| Linux   | Still not tested          |
 
 ### Switching to another Java version later
 
@@ -30,9 +36,9 @@ The project uses **`.java-version`** (currently set to **25**). To use a differe
 
 **macOS:** `set-java.sh` uses `/usr/libexec/java_home -v <version>`, so any JDK installed via Homebrew (`openjdk@17`, `openjdk@21`, `openjdk@25`) works after you change `.java-version`.
 
-**Windows:** If the auto-detected path doesn’t work, create **`config\java-home`** (no extension) with a single line: the full path to your JDK installation.
+**Windows:** still not tested.
 
-**Linux:** Create **`config/java-home`** with the JDK path, or rely on **JAVA_HOME** already set in your environment.
+**Linux:** still not tested.
 
 ### Installing and switching multiple OpenJDK versions (OS level)
 
@@ -101,35 +107,21 @@ sdk default java 25.0.1-tem
 
 **Windows**
 
-- Install multiple JDKs (e.g. from [Adoptium](https://adoptium.net/)) to different folders (e.g. `C:\Program Files\Eclipse Adoptium\jdk-25.0.x-hotspot`, `jdk-21.0.x-hotspot`).
-- Switch by setting **JAVA_HOME** in the terminal:  
-  `$env:JAVA_HOME = "C:\Program Files\Eclipse Adoptium\jdk-25.0.x-hotspot"`  
-  or in **System Properties → Environment variables**.
-- For this project, put the path you want in **`config\java-home`** so `run.ps1` / `run.bat` use that JDK.
+- Still not tested
 
 **Linux (Debian/Ubuntu)**
 
-```bash
-# Install multiple versions from the distro
-sudo apt install openjdk-17-jdk openjdk-21-jdk
-
-# List installed and set one for current shell
-sudo update-alternatives --config java   # pick a version
-export JAVA_HOME=$(dirname $(dirname $(readlink -f $(which java))))
-```
-
-Or use **SDKMAN** or **jenv** on Linux for the same workflow as on macOS.
+- Still not tested
 
 ## Run the application
 
 **No Maven install needed** — use the Maven Wrapper (first run will download Maven and dependencies):
 
-- **macOS / Linux:**  
-  `./mvnw javafx:run`  
+- **macOS / Linux:**
+  `./mvnw javafx:run`
   or `./run.sh`
-- **Windows (cmd or PowerShell):**  
-  `mvnw.cmd javafx:run`  
-  or `.\run.ps1` (PowerShell)
+- **Windows (cmd or PowerShell):**
+  still not tested
 
 If you have Maven installed, you can still run: `mvn javafx:run`.
 
@@ -142,7 +134,7 @@ First run may take a minute (downloads Maven + JavaFX); later runs are quick.
 ./mvnw package
 ```
 
-On Windows: `mvnw.cmd compile` or `mvnw.cmd package`.
+On Windows: still not tested
 
 ## Project layout
 
