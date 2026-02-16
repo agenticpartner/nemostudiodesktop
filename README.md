@@ -1,19 +1,18 @@
 # Nemo Studio Desktop for NVIDIA DGX Spark
 
-Many non technical users are keen to get hands on state of the art hardware such as NVIDIA DGX Spark and struggle to follow the tutorials or jupyter notebook examples, it's even more complex for end to end workflows like the ones supported by NVIDIA Nemo.
+Many non-technical users are eager to get hands-on experience with state-of-the-art hardware like the NVIDIA DGX Spark, but often struggle to follow tutorials or Jupyter notebook examples. This becomes even more challenging when dealing with end-to-end workflows such as those supported by NVIDIA NeMo.
 
-Nemo Studio Desktop (NSD) acts as your personal devops specialized in preparing all the prerequisites for working with NVIDIA Nemo, it runs on your local computer and connects to your DGX Spark, after installing you'll have a shorthand at hand that helps you get ready to work with NVIDIA Nemo.
+Nemo Studio Desktop (NSD) acts as your personal DevOps assistant, handling the setup and prerequisites required to work with NVIDIA NeMo. It runs on your local computer and connects to your DGX Spark. After installation, you’ll have a simple, ready-to-use environment that helps you start working with NVIDIA NeMo quickly and confidently.
 
 ![](assets/20260216_020626_gtcdc25-nemo-diagram.svg)
 
-
 ## Features (demo)
 
-- **Remote Connection**: Connects to your DGX Spark and run remote commands to setup NVIDIA Nemo
-- **End to End Workflow Validation**: NSD can prepare each step of NVIDIA Nemo workflow.
-- **End to End Example**: Once all the steps are ready NSD can prepare a basic end to end example as a starting template.
-- **Connects to existing NVIDIA Nemo tools**: NSD is a complement of existing NVIDIA Nemo tools such as Nemo Agent Toolking (NAT), once the environment is ready and installed it will guide the user to open this official tools.
-- **Learning Reinforcement**: NSD will take the user to the official documentation to clarify the concepts behind NVIDIA Nemo.
+- **Remote Connection**: Connects to your DGX Spark and executes the required commands to set up NVIDIA NeMo.
+- **End to End Workflow Validation**: NSD prepares and verifies each step of the NVIDIA NeMo workflow..
+- **End to End Example**: Once the environment is ready, NSD generates a basic end-to-end example as a starting template.
+- **Connects to existing NVIDIA Nemo tools**: NSD Works alongside existing tools such as the NeMo Agent Toolkit (NAT). After the environment is prepared, NSD guides users to these official tools.
+- **Learning Reinforcement**: NSD will direct users to the official documentation to help them understand the concepts behind NVIDIA NeMo.
 
 ## Prerequisites (any OS)
 
