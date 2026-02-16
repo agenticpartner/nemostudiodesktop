@@ -6,6 +6,9 @@ Nemo Studio Desktop (NSD) acts as your personal DevOps assistant, handling the s
 
 ![](assets/20260216_020626_gtcdc25-nemo-diagram.svg)
 
+
+![](assets/20260216_030149_nemostudiodesktop.png)
+
 ## Features (demo)
 
 - **Remote Connection**: Connects to your DGX Spark and executes the required commands to set up NVIDIA NeMo.
