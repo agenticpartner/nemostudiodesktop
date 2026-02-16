@@ -139,21 +139,38 @@ On Windows: still not tested
 
 ```
 nemostudiodesktop/
-├── .java-version            # Java version for this project (edit to switch; currently 25)
+├── .java-version              # Java version for this project (edit to switch; currently 25)
 ├── set-java.sh, set-java.ps1, set-java.cmd   # Set JAVA_HOME from .java-version (used by run scripts)
-├── config/java-home        # Optional: full JDK path (Windows/Linux if auto-detect fails)
-├── pom.xml                 # Maven: Java 25, JavaFX 21
-├── mvnw, mvnw.cmd          # Maven Wrapper (no Maven install needed)
+├── config/
+│   └── README.md               # Optional: JDK path (Windows/Linux if auto-detect fails)
+├── pom.xml                     # Maven: Java 25, JavaFX 21, JSch
+├── mvnw, mvnw.cmd              # Maven Wrapper (no Maven install needed)
 ├── .mvn/wrapper/
 ├── run.sh, run.bat, run.ps1
 ├── README.md
+├── LICENSE
+├── assets/                     # Docs/assets (e.g. workflow diagram)
 └── src/main/
     ├── java/com/nemostudio/ide/
-    │   ├── NemoStudioApp.java
-    │   └── IdeView.java
+    │   ├── NemoStudioApp.java          # Entry point, scene + WebView background
+    │   ├── IdeView.java                # Main layout: menu bar, 8 panels, Get Ready buttons, bottom terminal area
+    │   ├── RemoteTerminalPanel.java   # SSH terminal in bottom panel (run scripts on remote)
+    │   ├── RemoteFolderWindow.java    # Open Remote Folder: SFTP browse, connect, select path
+    │   ├── ConnectWindow.java         # Connect dialog (host, user, password)
+    │   ├── WorkflowStepWindow.java    # Workflow menu step windows (tools list)
+    │   ├── StatusBarMonitor.java      # Polls connectivity + remote folder path for status bar
+    │   ├── ConnectionState.java      # App-wide connected flag
+    │   ├── ConnectionStore.java      # Persists host, user, remote folder path (~/.nemostudio)
+    │   ├── SecurePasswordStore.java  # Encrypted password store (~/.nemostudio/credentials.enc)
+    │   ├── GetReady01.java … GetReady07.java   # Handlers: load and run scripts/GetReadyNN.sh on remote
     └── resources/
-        └── styles/
-            └── ide.css
+        ├── styles/
+        │   └── ide.css
+        ├── diagram-background.html    # Workflow diagram (loads images/gtcdc25-nemo-diagram.svg)
+        ├── images/
+        │   └── gtcdc25-nemo-diagram.svg
+        ├── scripts/                   # Shell scripts run on remote when Get Ready buttons are pressed
+        │   └── GetReady01.sh … GetReady07.sh
+        └── icons/
+            └── app-icon.png
 ```
-
-You can extend this with more IDE features (tabs, file open/save, syntax highlighting, etc.) later.
