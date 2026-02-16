@@ -6,8 +6,10 @@ Nemo Studio Desktop (NSD) acts as your personal DevOps assistant, handling the s
 
 ![](assets/20260216_020626_gtcdc25-nemo-diagram.svg)
 
+<p align="center">NVIDIA Nemo workflow (source NVIDIA)</p>
 
 ![](assets/20260216_030149_nemostudiodesktop.png)
+<p align="center">Nemo Studio Desktop (NSD) main maindow - Nemo Curator getting ready example</p>
 
 ## Features (demo)
 
