@@ -11,11 +11,7 @@ More information about NVIDIA Nemo in [https://www.nvidia.com/en-us/ai-data-scie
 
 The image below shows the main window of Nemo Studio Desktop (NSD). The interface is designed to clearly indicate what needs to be set up at each stage of the NVIDIA NeMo workflow.
 
-
-
 ![](assets/20260217_182330_nsddemo3.gif)
-
-![](assets/20260216_030149_nemostudiodesktop.png)
 
 ## Features (Alpha)
 
