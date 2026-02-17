@@ -86,20 +86,39 @@ public class IdeView {
                 getReadyBtn.setOnAction(e -> {
                     terminalPanel.setVisible(true);
                     terminalPanel.connect(() -> {
-                        // Run script after a short delay so the remote shell is ready for input
                         Executors.newSingleThreadScheduledExecutor()
                                 .schedule(() -> javafx.application.Platform.runLater(() -> IdeView.this.runGetReady(panelIndex, terminalPanel)),
                                         400, TimeUnit.MILLISECONDS);
                     });
                 });
                 panel.getChildren().add(getReadyBtn);
+
+                // Panel 1 only: add "Upload Files" button below "Get Ready"
+                Button uploadFilesBtn = null;
+                if (i == 1) {
+                    uploadFilesBtn = new Button("Upload Files");
+                    uploadFilesBtn.setOnAction(e -> {
+                        terminalPanel.setVisible(true);
+                        terminalPanel.connect(() -> UploadSampleFiles.execute(terminalPanel));
+                    });
+                    panel.getChildren().add(uploadFilesBtn);
+                }
+
+                final Button uploadBtn = uploadFilesBtn;
                 Runnable positionButton = () -> {
                     double pw = panel.getWidth();
                     double ph = panel.getHeight();
                     double bw = getReadyBtn.prefWidth(-1);
                     double bh = getReadyBtn.prefHeight(-1);
+                    double gap = 6;
+                    // Get Ready: same as before (25% from bottom, centered)
                     getReadyBtn.setLayoutX(Math.max(0, (pw - bw) / 2));
                     getReadyBtn.setLayoutY(Math.max(0, ph * (1 - BUTTON_BOTTOM_OFFSET_RATIO) - bh));
+                    if (uploadBtn != null) {
+                        double ubw = uploadBtn.prefWidth(-1);
+                        uploadBtn.setLayoutX(Math.max(0, (pw - ubw) / 2));
+                        uploadBtn.setLayoutY(getReadyBtn.getLayoutY() + bh + gap);
+                    }
                 };
                 panel.widthProperty().addListener((o, old, v) -> positionButton.run());
                 panel.heightProperty().addListener((o, old, v) -> positionButton.run());

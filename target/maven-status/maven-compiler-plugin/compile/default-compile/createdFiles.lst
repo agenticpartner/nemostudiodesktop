@@ -1,11 +1,13 @@
 com/nemostudio/ide/GetReady06.class
 com/nemostudio/ide/SecurePasswordStore.class
 com/nemostudio/ide/RemoteFolderWindow$RemoteEntry.class
+com/nemostudio/ide/UploadSampleFiles$1.class
 com/nemostudio/ide/ConnectionState.class
 com/nemostudio/ide/StatusBarMonitor.class
 com/nemostudio/ide/SftpHelper$1.class
 com/nemostudio/ide/GetReady01.class
 com/nemostudio/ide/GetReady04.class
+com/nemostudio/ide/UploadSampleFiles.class
 com/nemostudio/ide/SftpHelper$ProgressCallback.class
 com/nemostudio/ide/WorkflowStepWindow.class
 com/nemostudio/ide/RemoteFolderWindow.class
