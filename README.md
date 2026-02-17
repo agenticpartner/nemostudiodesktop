@@ -4,18 +4,14 @@ Many non-technical users are eager to get hands-on experience with state-of-the-
 
 Nemo Studio Desktop (NSD) acts as your personal DevOps assistant, handling the setup and prerequisites required to work with NVIDIA NeMo. It runs on your local computer and connects to your DGX Spark. After installation, you’ll have a simple, ready-to-use environment that helps you start working with NVIDIA NeMo quickly and confidently.
 
-
 The image below and following content has been taken from the official NVIDIA NeMo documentation: "The AI agent lifecycle is an end-to-end process for developing and improving AI agents in production applications. NVIDIA NeMo provides tools that enable each step of this workflow, so enterprises can build powerful, secure, and continuously learning agents."
 More information about NVIDIA Nemo in [https://www.nvidia.com/en-us/ai-data-science/products/nemo/](https://www.nvidia.com/en-us/ai-data-science/products/nemo/)
 
-
 ![](assets/20260216_020626_gtcdc25-nemo-diagram.svg)
-
 
 The image below shows the main window of Nemo Studio Desktop (NSD). The interface is designed to clearly indicate what needs to be set up at each stage of the NVIDIA NeMo workflow.
 
 ![](assets/20260216_030149_nemostudiodesktop.png)
-
 
 ## Features (Alpha)
 
@@ -33,7 +29,8 @@ The image below shows the main window of Nemo Studio Desktop (NSD). The interfac
 
 The first workflow step prepares the NeMo Curator environment on the remote machine:
 
-- **Left terminal** connects at application start and shows “Waiting for user action.” Use the **Upload Files** button (below Get Ready 01) to upload your own files or folders to the remote `data/sample` directory.
+- **Left terminal** connects at application start and shows progress of any activity executed in a NeMo workflow setup.Use the **Upload Files** button (below Get Ready 01) to upload your own files or folders to the remote `data/sample` directory.
+- **Right terminal** monitor NVDIA containers availability.
 - **Get Ready 01**
   - Uploads nemo curator examples (data, scripts) to the remote `example/` folder in DGX Spark.
   - Pulls the `nvcr.io/nvidia/nemo-curator:25.09` image.
