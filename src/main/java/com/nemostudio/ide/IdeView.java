@@ -61,13 +61,52 @@ public class IdeView {
         VBox centerSplit = new VBox();
         centerSplit.setStyle("-fx-background-color: transparent;");
 
-        // Remote terminal: shown in bottom panel only when a Get Ready button is pressed
+        // Remote terminal: visible at startup; connect at startup
         RemoteTerminalPanel terminalPanel = new RemoteTerminalPanel();
-        terminalPanel.setVisible(false);
+        terminalPanel.appendOutput("Waiting for user action.\n");
         Pane terminalPlaceholder = new Pane();
         terminalPlaceholder.setStyle("-fx-background-color: transparent;");
-        StackPane bottomStack = new StackPane();
-        bottomStack.getChildren().addAll(terminalPlaceholder, terminalPanel);
+        StackPane terminalStack = new StackPane();
+        terminalStack.getChildren().addAll(terminalPlaceholder, terminalPanel);
+        final boolean[] leftTerminalConnectOnce = { false };
+        terminalStack.sceneProperty().addListener((obs, oldScene, newScene) -> {
+            if (newScene != null && !leftTerminalConnectOnce[0]) {
+                leftTerminalConnectOnce[0] = true;
+                terminalPanel.connect(null);
+            }
+        });
+
+        // Right panel: terminal that shows only docker ps output, refreshed every 5s (clear then run)
+        RemoteTerminalPanel dockerStatusTerminal = new RemoteTerminalPanel("Docker status (refreshes every 5s). Connecting...");
+        StackPane rightTerminalStack = new StackPane();
+        rightTerminalStack.getChildren().add(dockerStatusTerminal);
+        final boolean[] dockerTerminalConnectOnce = { false };
+        rightTerminalStack.sceneProperty().addListener((obs, oldScene, newScene) -> {
+            if (newScene != null && !dockerTerminalConnectOnce[0]) {
+                dockerTerminalConnectOnce[0] = true;
+                dockerStatusTerminal.connect(() -> {
+                    dockerStatusTerminal.clearOutput();
+                    java.util.concurrent.ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
+                    scheduler.scheduleAtFixedRate(() -> javafx.application.Platform.runLater(() -> {
+                        dockerStatusTerminal.clearOutput();
+                        dockerStatusTerminal.sendCommand("docker ps");
+                    }), 0, 5, TimeUnit.SECONDS);
+                });
+            }
+        });
+
+        // Bottom half: left = terminal (50%), right = docker status terminal (50%)
+        HBox bottomHalf = new HBox();
+        bottomHalf.setStyle("-fx-background-color: transparent;");
+        bottomHalf.getChildren().addAll(terminalStack, rightTerminalStack);
+        terminalStack.setMinWidth(0);
+        terminalStack.setMaxWidth(Double.MAX_VALUE);
+        rightTerminalStack.setMinWidth(0);
+        rightTerminalStack.setMaxWidth(Double.MAX_VALUE);
+        HBox.setHgrow(terminalStack, Priority.ALWAYS);
+        HBox.setHgrow(rightTerminalStack, Priority.ALWAYS);
+        terminalStack.prefWidthProperty().bind(bottomHalf.widthProperty().multiply(0.5));
+        rightTerminalStack.prefWidthProperty().bind(bottomHalf.widthProperty().multiply(0.5));
 
         HBox centerOverlay = new HBox();
         centerOverlay.setStyle("-fx-background-color: transparent;");
@@ -84,12 +123,9 @@ public class IdeView {
             if (i >= 1) {
                 Button getReadyBtn = new Button("Get Ready");
                 getReadyBtn.setOnAction(e -> {
-                    terminalPanel.setVisible(true);
-                    terminalPanel.connect(() -> {
-                        Executors.newSingleThreadScheduledExecutor()
-                                .schedule(() -> javafx.application.Platform.runLater(() -> IdeView.this.runGetReady(panelIndex, terminalPanel)),
-                                        400, TimeUnit.MILLISECONDS);
-                    });
+                    Executors.newSingleThreadScheduledExecutor()
+                            .schedule(() -> javafx.application.Platform.runLater(() -> IdeView.this.runGetReady(panelIndex, terminalPanel)),
+                                    terminalPanel.isRemoteConnected() ? 0 : 400, TimeUnit.MILLISECONDS);
                 });
                 panel.getChildren().add(getReadyBtn);
 
@@ -97,10 +133,7 @@ public class IdeView {
                 Button uploadFilesBtn = null;
                 if (i == 1) {
                     uploadFilesBtn = new Button("Upload Files");
-                    uploadFilesBtn.setOnAction(e -> {
-                        terminalPanel.setVisible(true);
-                        terminalPanel.connect(() -> UploadSampleFiles.execute(terminalPanel));
-                    });
+                    uploadFilesBtn.setOnAction(e -> UploadSampleFiles.execute(terminalPanel));
                     panel.getChildren().add(uploadFilesBtn);
                 }
 
@@ -127,16 +160,16 @@ public class IdeView {
             centerOverlay.getChildren().add(panel);
         }
 
-        bottomStack.setMinHeight(0);
-        bottomStack.setMaxWidth(Double.MAX_VALUE);
+        terminalStack.setMinHeight(0);
+        rightTerminalStack.setMinHeight(0);
 
-        // Strict 50/50 height: each half gets exactly half of the center area
+        // Strict 50/50 height: top = 8 panels, bottom = terminal (left 50%) + docker status terminal (right 50%)
         centerOverlay.prefHeightProperty().bind(centerSplit.heightProperty().multiply(0.5));
         centerOverlay.maxHeightProperty().bind(centerSplit.heightProperty().multiply(0.5));
-        bottomStack.prefHeightProperty().bind(centerSplit.heightProperty().multiply(0.5));
-        bottomStack.maxHeightProperty().bind(centerSplit.heightProperty().multiply(0.5));
+        bottomHalf.prefHeightProperty().bind(centerSplit.heightProperty().multiply(0.5));
+        bottomHalf.maxHeightProperty().bind(centerSplit.heightProperty().multiply(0.5));
 
-        centerSplit.getChildren().addAll(centerOverlay, bottomStack);
+        centerSplit.getChildren().addAll(centerOverlay, bottomHalf);
         root.setCenter(centerSplit);
 
         statusBarMonitor = new StatusBarMonitor();
@@ -146,14 +179,17 @@ public class IdeView {
     private void runGetReady(int panelIndex, RemoteTerminalPanel terminal) {
         switch (panelIndex) {
             case 1 -> GetReady01.execute(terminal);
-            case 2 -> GetReady02.execute(terminal);
-            case 3 -> GetReady03.execute(terminal);
-            case 4 -> GetReady04.execute(terminal);
-            case 5 -> GetReady05.execute(terminal);
-            case 6 -> GetReady06.execute(terminal);
-            case 7 -> GetReady07.execute(terminal);
+            case 2, 3, 4, 5, 6, 7 -> showComingSoonAlert();
             default -> {}
         }
+    }
+
+    private void showComingSoonAlert() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Coming Soon");
+        alert.setHeaderText("Coming Soon");
+        alert.setContentText("This feature is not available yet. Stay tuned!");
+        alert.showAndWait();
     }
 
     private MenuBar buildMenuBar() {

@@ -34,13 +34,24 @@ public class RemoteTerminalPanel extends StackPane {
     private final AtomicBoolean connected = new AtomicBoolean(false);
 
     public RemoteTerminalPanel() {
+        this("Terminal will connect when you press a Get Ready button.");
+    }
+
+    /**
+     * Create a terminal panel with a custom prompt (placeholder text when empty).
+     */
+    public RemoteTerminalPanel(String promptText) {
         textArea = new TextArea();
         textArea.setEditable(false);
         textArea.setWrapText(true);
         textArea.setStyle("-fx-font-family: monospace; -fx-font-size: 13px;");
-        textArea.setPromptText("Terminal will connect when you press a Get Ready button.");
+        textArea.setPromptText(promptText != null ? promptText : "");
         getChildren().add(textArea);
         setStyle("-fx-background-color: #1e1e1e;");
+    }
+
+    public void setPromptText(String promptText) {
+        textArea.setPromptText(promptText != null ? promptText : "");
     }
 
     /**
@@ -125,6 +136,13 @@ public class RemoteTerminalPanel extends StackPane {
 
     public void appendOutput(String text) {
         textArea.appendText(filterAnsi(text));
+    }
+
+    /**
+     * Clear all text in the terminal. Safe to call from FX thread.
+     */
+    public void clearOutput() {
+        textArea.clear();
     }
 
     /**
