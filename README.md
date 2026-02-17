@@ -19,6 +19,43 @@ Nemo Studio Desktop (NSD) acts as your personal DevOps assistant, handling the s
 - **Connects to existing NVIDIA Nemo tools**: NSD Works alongside existing tools such as the NeMo Agent Toolkit (NAT). After the environment is prepared, NSD guides users to these official tools.
 - **Learning Reinforcement**: NSD will direct users to the official documentation to help them understand the concepts behind NVIDIA NeMo.
 
+## Workflow detail
+
+### Get Ready 01
+
+The first workflow step prepares the NeMo Curator environment on the remote machine:
+
+- **Left terminal** connects at application start and shows “Waiting for user action.” Use the **Upload Files** button (below Get Ready 01) to upload your own files or folders to the remote `data/sample` directory.
+- **Get Ready 01** uploads the bundled *example* content (scripts and folders under `data/getready01` in resources) to the remote `example/` folder—either as individual files when run from the IDE, or as a zip that the remote script unzips. It then runs `GetReady01.sh` on the remote, which:
+  - Pulls the `nvcr.io/nvidia/nemo-curator:25.09` image.
+  - Stops and removes any existing containers using that image.
+  - Runs a new container with the remote project path mounted at `/workspace`, keeping it running in the background.
+- The right terminal shows `docker ps` output, refreshed every 5 seconds.
+
+### Get Ready 02
+
+Coming soon.
+
+### Get Ready 03
+
+Coming soon.
+
+### Get Ready 04
+
+Coming soon.
+
+### Get Ready 05
+
+Coming soon.
+
+### Get Ready 06
+
+Coming soon.
+
+### Get Ready 07
+
+Coming soon.
+
 ## Prerequisites (any OS)
 
 - **OpenJDK 25** for this project (see below to use another version). **Maven is not required** (Maven Wrapper is included).
