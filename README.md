@@ -1,23 +1,27 @@
 # Nemo Studio Desktop (NSD) for NVIDIA DGX Spark
 
-**Note Alpha version: this preliminary version is designed to be installed on a macOS client computer, not directly on a DGX Spark device.**
-
 Many non-technical users are eager to get hands-on experience with state-of-the-art hardware like the NVIDIA DGX Spark, but often struggle to follow tutorials or Jupyter notebook examples. This becomes even more challenging when dealing with end-to-end workflows such as those supported by NVIDIA NeMo.
 
 Nemo Studio Desktop (NSD) acts as your personal DevOps assistant, handling the setup and prerequisites required to work with NVIDIA NeMo. It runs on your local computer and connects to your DGX Spark. After installation, you’ll have a simple, ready-to-use environment that helps you start working with NVIDIA NeMo quickly and confidently.
 
+
+The image below and following content has been taken from the official NVIDIA NeMo documentation: "The AI agent lifecycle is an end-to-end process for developing and improving AI agents in production applications. NVIDIA NeMo provides tools that enable each step of this workflow, so enterprises can build powerful, secure, and continuously learning agents."
+More information about NVIDIA Nemo in [https://www.nvidia.com/en-us/ai-data-science/products/nemo/](https://www.nvidia.com/en-us/ai-data-science/products/nemo/)
+
+
 ![](assets/20260216_020626_gtcdc25-nemo-diagram.svg)
 
-<p align="center">NVIDIA Nemo workflow (source NVIDIA)</p>
+
+The image below shows the main window of Nemo Studio Desktop (NSD). The interface is designed to clearly indicate what needs to be set up at each stage of the NVIDIA NeMo workflow.
 
 ![](assets/20260216_030149_nemostudiodesktop.png)
 
-<p align="center">Nemo Studio Desktop (NSD) main maindow - Nemo Curator getting ready example</p>
 
+## Features (Alpha)
 
-## Features (demo)
+**Note: this preliminary version is designed to be installed on a macOS client computer, not directly on a DGX Spark device.**
 
-- **Remote Connection**: Connects to your DGX Spark and executes the required commands to set up NVIDIA NeMo.
+- **Remote Connection**: Connects to your DGX Spark and executes the required commands to set up an NVIDIA NeMo environment.
 - **End to End Workflow Validation**: NSD prepares and verifies each step of the NVIDIA NeMo workflow..
 - **End to End Example**: Once the environment is ready, NSD generates a basic end-to-end example as a starting template.
 - **Connects to existing NVIDIA Nemo tools**: NSD Works alongside existing tools such as the NeMo Agent Toolkit (NAT). After the environment is prepared, NSD guides users to these official tools.
@@ -30,7 +34,7 @@ Nemo Studio Desktop (NSD) acts as your personal DevOps assistant, handling the s
 The first workflow step prepares the NeMo Curator environment on the remote machine:
 
 - **Left terminal** connects at application start and shows “Waiting for user action.” Use the **Upload Files** button (below Get Ready 01) to upload your own files or folders to the remote `data/sample` directory.
-- **Get Ready 01** 
+- **Get Ready 01**
   - Uploads nemo curator examples (data, scripts) to the remote `example/` folder in DGX Spark.
   - Pulls the `nvcr.io/nvidia/nemo-curator:25.09` image.
   - Runs a new container with the remote project path mounted at `/workspace`, keeping it running in the background.
@@ -39,7 +43,6 @@ The first workflow step prepares the NeMo Curator environment on the remote mach
 ![](assets/nemoexample01.png)
 
 <p align="center">An example of a quality filtering example script</p>
-
 
 ### Select Model
 
