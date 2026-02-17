@@ -1,4 +1,4 @@
-# Nemo Studio Desktop for NVIDIA DGX Spark
+# Nemo Studio Desktop (Alpha) for NVIDIA DGX Spark
 
 Many non-technical users are eager to get hands-on experience with state-of-the-art hardware like the NVIDIA DGX Spark, but often struggle to follow tutorials or Jupyter notebook examples. This becomes even more challenging when dealing with end-to-end workflows such as those supported by NVIDIA NeMo.
 
@@ -9,7 +9,10 @@ Nemo Studio Desktop (NSD) acts as your personal DevOps assistant, handling the s
 <p align="center">NVIDIA Nemo workflow (source NVIDIA)</p>
 
 ![](assets/20260216_030149_nemostudiodesktop.png)
+
 <p align="center">Nemo Studio Desktop (NSD) main maindow - Nemo Curator getting ready example</p>
+
+Note: this preliminary version is designed to be installed on a macOS client computer, not directly on a DGX Spark device.
 
 ## Features (demo)
 
@@ -21,7 +24,7 @@ Nemo Studio Desktop (NSD) acts as your personal DevOps assistant, handling the s
 
 ## Workflow detail
 
-### Get Ready 01
+### Prepare, Generate Data
 
 The first workflow step prepares the NeMo Curator environment on the remote machine:
 
@@ -32,27 +35,27 @@ The first workflow step prepares the NeMo Curator environment on the remote mach
   - Runs a new container with the remote project path mounted at `/workspace`, keeping it running in the background.
 - The right terminal shows `docker ps` output, refreshed every 5 seconds.
 
-### Get Ready 02
+### Select Model
 
 Coming soon.
 
-### Get Ready 03
+### Build Agent
 
 Coming soon.
 
-### Get Ready 04
+### Connect to Data
 
 Coming soon.
 
-### Get Ready 05
+### Guardrail
 
 Coming soon.
 
-### Get Ready 06
+### Deploy
 
 Coming soon.
 
-### Get Ready 07
+### Monitor/Optimize
 
 Coming soon.
 
