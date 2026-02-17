@@ -1,6 +1,6 @@
-# Nemo Studio Desktop (Alpha) for NVIDIA DGX Spark
+# Nemo Studio Desktop (NSD) for NVIDIA DGX Spark
 
-**Note: this preliminary version is designed to be installed on a macOS client computer, not directly on a DGX Spark device.**
+**Note Alpha version: this preliminary version is designed to be installed on a macOS client computer, not directly on a DGX Spark device.**
 
 Many non-technical users are eager to get hands-on experience with state-of-the-art hardware like the NVIDIA DGX Spark, but often struggle to follow tutorials or Jupyter notebook examples. This becomes even more challenging when dealing with end-to-end workflows such as those supported by NVIDIA NeMo.
 
@@ -30,11 +30,16 @@ Nemo Studio Desktop (NSD) acts as your personal DevOps assistant, handling the s
 The first workflow step prepares the NeMo Curator environment on the remote machine:
 
 - **Left terminal** connects at application start and shows “Waiting for user action.” Use the **Upload Files** button (below Get Ready 01) to upload your own files or folders to the remote `data/sample` directory.
-- **Get Ready 01** uploads the bundled *example* content (scripts and folders under `data/getready01` in resources) to the remote `example/` folder—either as individual files when run from the IDE, or as a zip that the remote script unzips. It then runs `GetReady01.sh` on the remote, which:
+- **Get Ready 01** 
+  - Uploads nemo curator examples (data, scripts) to the remote `example/` folder in DGX Spark.
   - Pulls the `nvcr.io/nvidia/nemo-curator:25.09` image.
-  - Stops and removes any existing containers using that image.
   - Runs a new container with the remote project path mounted at `/workspace`, keeping it running in the background.
-- The right terminal shows `docker ps` output, refreshed every 5 seconds.
+  - You can now exec into the container and access the examples to get started!
+
+![](assets/nemoexample01.png)
+
+<p align="center">An example of a quality filtering example script</p>
+
 
 ### Select Model
 
