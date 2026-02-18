@@ -39,7 +39,7 @@ The first workflow step prepares the NeMo Curator environment on the remote mach
 
 ![](assets/nemoexample01.png)
 
-<p align="center">An example of a quality filtering example script</p>
+<p align="center">An example of a quality filtering script</p>
 
 ### Select Model
 
