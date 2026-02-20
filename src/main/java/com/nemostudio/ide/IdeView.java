@@ -121,7 +121,7 @@ public class IdeView {
             panel.setMaxWidth(Double.MAX_VALUE);
             HBox.setHgrow(panel, Priority.ALWAYS);
             if (i >= 1) {
-                Button getReadyBtn = new Button("Get Ready");
+                Button getReadyBtn = new Button(i == 1 ? "Get Ready Nemo Curator" : "Get Ready");
                 getReadyBtn.setOnAction(e -> {
                     Executors.newSingleThreadScheduledExecutor()
                             .schedule(() -> javafx.application.Platform.runLater(() -> IdeView.this.runGetReady(panelIndex, terminalPanel)),
@@ -129,14 +129,19 @@ public class IdeView {
                 });
                 panel.getChildren().add(getReadyBtn);
 
-                // Panel 1 only: add "Upload Files" button below "Get Ready"
+                // Panel 1 only: "GetReady Nemo Data Designer" below Get Ready, then "Upload Files"
+                Button nemoDataDesignerBtn = null;
                 Button uploadFilesBtn = null;
                 if (i == 1) {
+                    nemoDataDesignerBtn = new Button("Get Ready Nemo Data Designer");
+                    nemoDataDesignerBtn.setOnAction(e -> showComingSoonAlert());
+                    panel.getChildren().add(nemoDataDesignerBtn);
                     uploadFilesBtn = new Button("Upload Files");
                     uploadFilesBtn.setOnAction(e -> UploadSampleFiles.execute(terminalPanel));
                     panel.getChildren().add(uploadFilesBtn);
                 }
 
+                final Button dataDesignerBtn = nemoDataDesignerBtn;
                 final Button uploadBtn = uploadFilesBtn;
                 Runnable positionButton = () -> {
                     double pw = panel.getWidth();
@@ -144,13 +149,20 @@ public class IdeView {
                     double bw = getReadyBtn.prefWidth(-1);
                     double bh = getReadyBtn.prefHeight(-1);
                     double gap = 6;
-                    // Get Ready: same as before (25% from bottom, centered)
                     getReadyBtn.setLayoutX(Math.max(0, (pw - bw) / 2));
                     getReadyBtn.setLayoutY(Math.max(0, ph * (1 - BUTTON_BOTTOM_OFFSET_RATIO) - bh));
+                    double y = getReadyBtn.getLayoutY() + bh + gap;
+                    if (dataDesignerBtn != null) {
+                        double dbw = dataDesignerBtn.prefWidth(-1);
+                        double dbh = dataDesignerBtn.prefHeight(-1);
+                        dataDesignerBtn.setLayoutX(Math.max(0, (pw - dbw) / 2));
+                        dataDesignerBtn.setLayoutY(y);
+                        y += dbh + gap;
+                    }
                     if (uploadBtn != null) {
                         double ubw = uploadBtn.prefWidth(-1);
                         uploadBtn.setLayoutX(Math.max(0, (pw - ubw) / 2));
-                        uploadBtn.setLayoutY(getReadyBtn.getLayoutY() + bh + gap);
+                        uploadBtn.setLayoutY(y);
                     }
                 };
                 panel.widthProperty().addListener((o, old, v) -> positionButton.run());
