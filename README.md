@@ -1,4 +1,5 @@
 # Nemo Studio Desktop (NSD) for NVIDIA DGX Spark
+# This project has been discontinued, please check [https://unsloth.ai/docs/new/studio](Unsloth Studio)
 
 Many non-technical users are eager to get hands-on experience with state-of-the-art hardware like the NVIDIA DGX Spark, but often struggle to follow tutorials or Jupyter notebook examples. This becomes even more challenging when dealing with end-to-end workflows such as those supported by NVIDIA NeMo.
 
